@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>購入情報確認画面</title>
+</head>
+<body>
+<h1>商品購入</h1>
+<h3>以下の商品を購入しますか？</h3>
+<table border="1">
+	<tr>
+		<th>商品名</th>
+		<th>商品の色</th>
+		<th>メーカ名</th>
+		<th>単価</th>
+		<th>数量</th>
+	</tr>
+	<tr>
+		<td>麦わら帽子</td>
+		<td>赤</td>
+		<td>赤髪帽子協会</td>
+		<td>&yen;3,200</td>
+		<td>2個</td>
+	</tr>
+	<tr>
+		<td>革の鞄</td>
+		<td>茶</td>
+		<td>スキンバッグス</td>
+		<td>&yen;12,000</td>
+		<td>1個</td>
+	</tr>
+</table>
+<p>合計金額：&yen;18,400</p>
+<br>
+<form action="purchaseCommit.html">
+<table>
+		<tr>
+			<th>精算方法</th>
+			<td>
+				<select name="payment">
+					<option value="1">代金引換</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>配送先</th>
+			<td>
+				<input type="radio" name="address" value="1" checked="checked">自宅<br>
+				<input type="radio" name="address" value="2">配送先を指定<br>
+				<input type="text" name="otherAddress">
+			</td>
+		</tr>
+	</table>
+<br>
+	<input type="submit" value="購入する">
+</form>
+</body>
+</html>
