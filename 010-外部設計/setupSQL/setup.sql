@@ -11,12 +11,14 @@ DROP TABLE IF EXISTS items CASCADE;
 DROP TABLE IF EXISTS items_in_cart CASCADE;
 DROP TABLE IF EXISTS purchases CASCADE;
 DROP TABLE IF EXISTS purchase_details CASCADE;
+DROP TABLE IF EXISTS colors CASCADE;
 
 --シーケンスの削除--
 DROP SEQUENCE IF EXISTS categories_category_id_seq CASCADE;
 DROP SEQUENCE IF EXISTS items_item_id_seq CASCADE;
 DROP SEQUENCE IF EXISTS purchases_purchase_id_seq CASCADE;
 DROP SEQUENCE IF EXISTS purchase_details_purchase_detail_id_seq CASCADE;
+DROP SEQUENCE IF EXISTS colors_color_id_seq CASCADE;
 
 
 -- カテゴリーテーブルのカテゴリーID用のシーケンス生成
@@ -46,12 +48,19 @@ CREATE SEQUENCE purchase_details_purchase_detail_id_seq
  INCREMENT BY   1
  MAXVALUE 2147483647
  NO CYCLE;
+ 
+ -- 色テーブルの色ID用のシーケンス生成
+CREATE SEQUENCE colors_color_id_seq
+ START WITH     1
+ INCREMENT BY   1
+ MAXVALUE 2147483647
+ NO CYCLE;
 
 
 -- 会員テーブル
 CREATE TABLE users(
 	user_id VARCHAR(255) PRIMARY KEY,
-   	user_name VARCHAR(255) NOT NULL,
+	user_name VARCHAR(255) NOT NULL,
 	user_password VARCHAR(255) NOT NULL,
 	user_address VARCHAR(255) NOT NULL,
 	user_status BOOLEAN NOT NULL DEFAULT FALSE
@@ -65,17 +74,25 @@ CREATE TABLE categories(
 	INDEX idx_category_id(category_id)
 );
 
+-- 色テーブル
+CREATE TABLE colors(
+	color_id INTEGER PRIMARY KEY DEFAULT nextval('colors_color_id_seq'),
+	color_name VARCHAR(255) NOT NULL,
+	INDEX idx_user_id(color_name)
+);
+
 -- 商品テーブル
 CREATE TABLE items(
 	item_id INTEGER PRIMARY KEY DEFAULT nextval('items_item_id_seq'),
 	category_id INTEGER NOT NULL,
+	color_id INTEGER NOT NULL,
 	item_name VARCHAR(255) NOT NULL,
-	color VARCHAR(255) NOT NULL,
 	manufacturer VARCHAR(255) NOT NULL,
 	price INTEGER NOT NULL,
 	stock INTEGER NOT NULL,
 	recommended BOOLEAN NOT NULL DEFAULT FALSE,
 	FOREIGN KEY (category_id) REFERENCES categories(category_id),
+	FOREIGN KEY (color_id) REFERENCES colors(color_id),
 	INDEX idx_item_id(item_id)
 );
 
@@ -115,6 +132,7 @@ CREATE TABLE purchase_details(
 );
 
 
+
 --会員テーブルの初期データ
 INSERT INTO users (user_id, user_name, user_password, user_address, user_status) VALUES ('aaa@icloud.com','佐藤 一郎','Ichiro0101','東京都渋谷区1-1-1',default);
 INSERT INTO users (user_id, user_name, user_password, user_address, user_status) VALUES ('bbb@icloud.com','加藤 二郎','Ziro0202','東京都新宿区2-2-2',default);
@@ -124,18 +142,28 @@ INSERT INTO users (user_id, user_name, user_password, user_address, user_status)
 INSERT INTO categories (category_id, category_name) VALUES (nextval('categories_category_id_seq'),'帽子');
 INSERT INTO categories (category_id, category_name) VALUES (nextval('categories_category_id_seq'),'鞄');
 
+--色テーブルのデータ初期データ
+INSERT INTO colors (color_id, color_name) VALUES (nextval('colors_color_id_seq'),'レッド');
+INSERT INTO colors (color_id, color_name) VALUES (nextval('colors_color_id_seq'),'ブルー');
+INSERT INTO colors (color_id, color_name) VALUES (nextval('colors_color_id_seq'),'グリーン');
+INSERT INTO colors (color_id, color_name) VALUES (nextval('colors_color_id_seq'),'グレー');
+INSERT INTO colors (color_id, color_name) VALUES (nextval('colors_color_id_seq'),'ホワイト');
+INSERT INTO colors (color_id, color_name) VALUES (nextval('colors_color_id_seq'),'イエロー');
+INSERT INTO colors (color_id, color_name) VALUES (nextval('colors_color_id_seq'),'ブラック');
+INSERT INTO colors (color_id, color_name) VALUES (nextval('colors_color_id_seq'),'ピンク');
+
 --商品テーブルの初期データ
-INSERT INTO items (item_id, category_id, item_name, color, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),1,'ベースボールキャップ','レッド','東京帽子店',1100,10,default);
-INSERT INTO items (item_id, category_id, item_name, color, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),1,'マジシャンみたいな帽子','ブルー','東京帽子店',1200,10,default);
-INSERT INTO items (item_id, category_id, item_name, color, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),1,'バケットハット','グリーン','東京帽子店',1300,10,default);
-INSERT INTO items (item_id, category_id, item_name, color, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),1,'小さい帽子','グレー','小さい帽子屋',1400,10,true);
-INSERT INTO items (item_id, category_id, item_name, color, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),1,'大きい帽子','ホワイト','大きい帽子屋',10000,2,true);
-INSERT INTO items (item_id, category_id, item_name, color, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),1,'コック帽','ホワイト','業務用帽子屋',1000,10,default);
-INSERT INTO items (item_id, category_id, item_name, color, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),2,'すごく小さい鞄','イエロー','KABANメイカー',100,10,default);
-INSERT INTO items (item_id, category_id, item_name, color, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),2,'小さい鞄','ブルー','KABANメイカー',2000,10,default);
-INSERT INTO items (item_id, category_id, item_name, color, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),2,'ちょうどいい鞄','グリーン','KABANメイカー',3000,10,true);
-INSERT INTO items (item_id, category_id, item_name, color, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),2,'大きい鞄','ブラック','おしゃれなかばん屋さん',21000,10,default);
-INSERT INTO items (item_id, category_id, item_name, color, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),2,'すごく大きい鞄','ホワイト','おしゃれなかばん屋さん',29800,10,default);
+INSERT INTO items (item_id, category_id, item_name, color_id, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),1,'ベースボールキャップ',1,'東京帽子店',1100,10,default);
+INSERT INTO items (item_id, category_id, item_name, color_id, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),1,'マジシャンみたいな帽子',2,'東京帽子店',1200,10,default);
+INSERT INTO items (item_id, category_id, item_name, color_id, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),1,'バケットハット',3,'東京帽子店',1300,10,default);
+INSERT INTO items (item_id, category_id, item_name, color_id, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),1,'小さい帽子',4,'小さい帽子屋',1400,10,true);
+INSERT INTO items (item_id, category_id, item_name, color_id, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),1,'大きい帽子',5,'大きい帽子屋',10000,2,true);
+INSERT INTO items (item_id, category_id, item_name, color_id, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),1,'コック帽',5,'業務用帽子屋',1000,10,default);
+INSERT INTO items (item_id, category_id, item_name, color_id, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),2,'すごく小さい鞄',6,'KABANメイカー',100,10,default);
+INSERT INTO items (item_id, category_id, item_name, color_id, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),2,'小さい鞄',2,'KABANメイカー',2000,10,default);
+INSERT INTO items (item_id, category_id, item_name, color_id, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),2,'ちょうどいい鞄',3,'KABANメイカー',3000,10,true);
+INSERT INTO items (item_id, category_id, item_name, color_id, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),2,'大きい鞄',7,'おしゃれなかばん屋さん',21000,10,default);
+INSERT INTO items (item_id, category_id, item_name, color_id, manufacturer, price, stock, recommended) VALUES (nextval('items_item_id_seq'),2,'すごく大きい鞄',5,'おしゃれなかばん屋さん',29800,10,default);
 
 --カートテーブルの初期データ
 INSERT INTO items_in_cart (user_id, item_id, amount, booked_date) VALUES ('aaa@icloud.com',1,1,'2025-08-15');
