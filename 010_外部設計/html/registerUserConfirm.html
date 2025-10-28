@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>会員登録情報確認画面</title>
+</head>
+<body>
+	<h1>会員登録</h1>
+	<h3>以下の内容で登録しますか？</h3>
+	<form action= "registerUserCommit.html" method = "post">
+		<table border = "1">
+			<tr>
+				<th>会員ID（メールアドレス）</th>
+				<td>aaa@example.com</td>
+			</tr>
+			<tr>
+				<th>パスワード</th>
+				<td>********</td>
+			</tr>
+			<tr>
+				<th>お名前</th>
+				<td>太郎</td>
+			</tr>
+			<tr>
+				<th>ご住所</th>
+				<td>東京都渋谷区品川1-1-1</td>
+			</tr>
+		</table>
+		<input type = "submit" value = "登録">
+	</form>
+	<br>
+	<!-- 商品検索画面へ遷移※会員登録されないこと -->
+	<a href = "main.html">商品検索へ</a>
+</body>
+</html>
