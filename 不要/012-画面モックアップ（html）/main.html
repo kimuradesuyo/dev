@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>メイン画面</title>
+</head>
+<body>
+<h1>商品検索</h1>
+<form action="searchResult.html" method="get">
+	商品名 &nbsp <input type="text" name="keyword" placeholder="商品名を入力"><br>
+	メーカ名 &nbsp <input type="text" name="keyword" placeholder="メーカ名を入力"><br>
+	商品カテゴリ &nbsp <select name="category">
+		<option value="1">すべて</option>
+		<option value="2">帽子</option>
+		<option value="3">鞄</option>
+	</select><br>
+	商品の色 &nbsp <select name="color">
+		<option value="1">すべて</option>
+		<option value="2">赤</option>
+		<option value="3">青</option>
+	</select><br>
+	オススメ &nbsp <input type="checkbox" id="recommend" name="recommend"><br>
+	<input type="submit" value="検索">
+</form>
+<br>
+<a href="cart.html">ショッピングカートへ</a><br>
+
+<p>--ログインしていない場合----------------</p>
+<a href="login.html">ログイン</a>
+
+<p>--ログイン済みの場合----------------</p>
+<a href="updateUser.html">会員情報の変更</a><br>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>カートからの削除確認画面</title>
+</head>
+<body>
+<h1>カート内商品の削除</h1>
+<h3>以下の商品をカートから削除しますか?</h3>
+<table border="1">
+	<tr>
+		<th>商品名</th>
+		<td>麦わら帽子</td>
+	</tr>
+	<tr>
+		<th>色</th>
+		<td>赤</td>
+	</tr>
+	<tr>
+		<th>メーカ名</th>
+		<td>赤髪帽子協会</td>
+	</tr>
+	<tr>
+		<th>単価</th>
+		<td>&yen3,200</td>
+	</tr>
+	<tr>
+		<th>数量</th>
+		<td>2個</td>
+	</tr>
+</table>
+<form action="removeFromCartCommit.html" method="post">
+	<input type="submit" value="削除する">
+	<input type="hidden" name="itemId" value="1">
+</form><br>
+<a href="cart.html">戻る</a><br>
+<a href="main.html">商品検索へ</a>
+</body>
+</html>

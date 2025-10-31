@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ショッピングカート一覧画面</title>
+</head>
+<body>
+<h1>カート</h1>
+<table border="1">
+	<tr>
+		<th>商品名</th>
+		<th>商品の色</th>
+		<th>メーカ名</th>
+		<th>単価</th>
+		<th>数量</th>
+	</tr>
+	<tr>
+		<td>麦わら帽子</td>
+		<td>赤</td>
+		<td>赤髪帽子協会</td>
+		<td>&yen3,200</td>
+		<td>2個</td>
+		<td><a href="removeFromCartConfirm.html?itemId=1">削除</a></td>
+	</tr>
+	<tr>
+		<td>革の鞄</td>
+		<td>茶</td>
+		<td>スキンバッグス</td>
+		<td>&yen12,000</td>
+		<td>1個</td>
+		<td><a href="removeFromCartConfirm.html?itemId=2">削除</a></td>
+	</tr>
+</table>
+<p>合計金額：&yen18,400</p>
+<form action="purchaseConfirm.html" method="post">
+	<input type="submit" value="購入する">
+</form>
+<br>
+<a href="main.html">商品検索へ</a>
+</body>
+</html>
